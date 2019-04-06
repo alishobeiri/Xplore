@@ -21,6 +21,12 @@ export default class App extends React.Component {
 
   render() {
     const { welcomeScreen } = this.state;
+    if (!hasCameraPermission){
+      return(
+        <Text>Please give the camera access</Text>
+      );
+    }
+
     if (welcomeScreen) {
       return (
         <View style={styles.container}>

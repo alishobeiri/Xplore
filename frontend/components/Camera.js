@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import Camera from 'react-native-camera';
 
-export default class Camera extends React.Component {
+export default class CameraScreen extends React.Component {
     state = {
 
     }
