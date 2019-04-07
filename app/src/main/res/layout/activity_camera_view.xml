@@ -34,7 +34,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/from_button" />
+        app:layout_constraintTop_toBottomOf="@+id/from_button"
+        tools:text="Please select a language above" />
 
     <View
         android:id="@+id/view2"
@@ -70,7 +71,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/to_button" />
+        app:layout_constraintTop_toBottomOf="@+id/to_button"
+        tools:text="Please select a language above" />
 
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/floatingActionButton"
