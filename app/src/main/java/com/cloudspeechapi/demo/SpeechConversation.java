@@ -31,6 +31,9 @@ import android.widget.TextView;
 import android.hardware.Camera;
 import android.hardware.Camera.FaceDetectionListener;
 import android.hardware.Camera.Face;
+import android.graphics.Matrix;
+import android.graphics.RectF;
+import android.hardware.Camera.CameraInfo;
 
 
 public class SpeechConversation extends AppCompatActivity implements VoiceView.OnRecordListener {
@@ -113,42 +116,28 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
             }
 
             if(face != null) {
-                Log.d("bottomFace", Integer.toString(face.rect.bottom));
-
-                Point face_point = face.mouth;
-
-
-                int bottom = face.rect.bottom + 1000;
-
-                int left = face.rect.left + 400;
-                int right = face.rect.right + 400;
-
-                right = right - (right - left)/2;
+                RectF position = new RectF();
+                position.set(face.rect);
 
 
-                int face_x = face_point.x;
-                int face_y = face_point.y;
+                Matrix matrix = new Matrix();
+                CameraInfo info = new CameraInfo();
+                camera.getCameraInfo(0, info);
 
-                int s_width = getScreenWidth();
-                int s_height = getScreenHeight();
-                int x_pixel = (int)(((right/2000.0)*(s_width)));
-                int y_pixel = (int)(((bottom)/2000.0)*(s_height));
+                // Need mirror for front camera.
+                boolean mirror = (info.facing == CameraInfo.CAMERA_FACING_FRONT);
+                matrix.setScale(mirror ? -1 : 1, 1);
+                // This is the value for android.hardware.Camera.setDisplayOrientation.
+                matrix.postRotate(90);
+                // Camera driver coordinates range from (-1000, -1000) to (1000, 1000).
+                // UI coordinates range from (0, 0) to (width, height).
+                matrix.postScale(getScreenWidth() / 2000f, getScreenHeight() / 2000f);
+                matrix.postTranslate(getScreenWidth() / 2f, getScreenHeight() / 2f);
 
-                if(x_pixel > s_width || x_pixel < 0) {
-                    x_pixel = s_width / 3;
-                }
+                matrix.mapRect(position);
 
-                if(y_pixel > s_height || y_pixel < 0) {
-                    y_pixel = s_height / 4;
-                }
-
-                Log.d("move_test_bot", Integer.toString(x_pixel));
-                Log.d("move_test_y", Integer.toString(face_y));
-
-                Log.d("s_width", Integer.toString(s_width));
-
-                mSpeechRecogText.setX(x_pixel);
-                mSpeechRecogText.setY(y_pixel);
+                mSpeechRecogText.setX(position.left - mSpeechRecogText.getWidth()/3);
+                mSpeechRecogText.setY(position.bottom + mSpeechRecogText.getHeight()/4);
             }
 
 
