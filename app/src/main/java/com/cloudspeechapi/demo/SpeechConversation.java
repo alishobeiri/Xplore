@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.hardware.Camera;
 
 /*
  * Copyright (C) 2017 The Android Open Source Project

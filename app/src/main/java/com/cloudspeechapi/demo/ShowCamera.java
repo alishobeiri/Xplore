@@ -2,8 +2,9 @@ package com.cloudspeechapi.demo;
 
 import android.content.res.Configuration;
 import android.hardware.Camera;
-import android.view.Surface;
+import android.view.SurfaceView;
 import android.view.SurfaceHolder;
+import android.content.Context;
 
 import java.io.IOException;
 
