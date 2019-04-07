@@ -215,11 +215,15 @@ public class CloudSpeechService extends Service {
         final Locale locale = Locale.getDefault();
         final StringBuilder language = new StringBuilder(locale.getLanguage());
         final String country = locale.getCountry();
+        Log.d(">>>>>>>>>> locale", locale.toString());
+        Log.d(">>>>>>>>>> language", language.toString());
+        Log.d(">>>>>>>>>> country", country);
         if (!TextUtils.isEmpty(country)) {
             language.append("-");
             language.append(country);
         }
-        return language.toString();
+        Log.d(">>>>>>>>>> lang to string", language.toString());
+        return "fr-CA";
     }
 
     @Nullable

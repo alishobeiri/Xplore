@@ -65,6 +65,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
     private String mSavedText;
     private Handler mHandler;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
