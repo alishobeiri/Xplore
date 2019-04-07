@@ -26,6 +26,9 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.hardware.Camera;
+import android.hardware.Camera.FaceDetectionListener;
+import android.hardware.Camera.Face;
+
 
 /*
  * Copyright (C) 2017 The Android Open Source Project
@@ -66,6 +69,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
     private String mSavedText;
     private Handler mHandler;
+    private Handler mCameraHandler;
 
     Camera camera;
     FrameLayout frameLayout;
@@ -87,7 +91,32 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
         showCamera = new ShowCamera(this, camera);
         frameLayout.addView(showCamera);
+
+
+        camera.setFaceDetectionListener(faceDetectionListener);
+        camera.startFaceDetection();
     }
+
+
+    private FaceDetectionListener faceDetectionListener = new FaceDetectionListener() {
+        @Override
+        public void onFaceDetection(Face[] faces, Camera camera) {
+            Log.d("onFaceDetection", "Number of Faces:" + faces.length);
+            Face face = null;
+            if(faces.length > 1) {
+                face = faces[0];
+            }
+
+            if(face != null) {
+                Log.d("bottomFace", Integer.toString(face.rect.bottom));
+            }
+
+
+            // Update the view now!
+            // mFaceView.setFaces(faces);
+        }
+    };
+
 
     @Override
     public void onStart() {
@@ -107,6 +136,13 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
                     REQUEST_RECORD_AUDIO_PERMISSION);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        camera.stopPreview();
+        camera.release();
     }
 
     @Override
