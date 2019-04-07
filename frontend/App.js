@@ -12,9 +12,11 @@ export default class App extends React.Component {
       hasCameraPermission: false,
       hasMicrophonePermission: false,
       startRecording: false,
+      camDisplay: null,
     }
   }
 
+  //  ask user permission for both camera and microphone
   componentDidMount = async () => {
     const cameraResult = await Permissions.askAsync(Permissions.CAMERA);
     const cameraRollResult = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -31,11 +33,22 @@ export default class App extends React.Component {
     });
   };
 
+  // launch camera
+  launchCam = async () => {
+    const camView = await Expo.ImagePicker.launchCameraAsync();
+    if(!camView.cancelled) {
+      this.setState({camDisplay: camView, welcomeScreen: welcomeScreen});
+    }
+  };
+
+
+
+
   render() {
     const { welcomeScreen, hasCameraPermission, hasMicrophonePermission } = this.state;
     if (!hasCameraPermission || !hasMicrophonePermission) {
       return (
-        <Text>Please give camera or microphone access</Text>
+        <Text>Please restart app and give camera or microphone access</Text>
       );
     }
 
@@ -44,24 +57,19 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <Text>Click to Enter the camera</Text>
           <Button
-            title="Click to Enter the App"
-            onPress={() => {
-              this.setState({
-                welcomeScreen: false,
-                startRecording: true
-              })
-            }} />
+            onPress={this.launchCam}
+            title={"Click to Enter the App"}
+            />
+          
         </View>
       );
     } else {
-      return (
-        <View style={styles.container}>
-          <Text>CAMERA SHOULD BE HERE + THERE WILL BE SOUND</Text>
-        </View>
-      );
+      return <View camDisplay={this.state.camDisplay}/>
     }
   }
 }
+
+
 
 
 const styles = StyleSheet.create({
