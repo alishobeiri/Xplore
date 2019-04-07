@@ -39,6 +39,17 @@
         android:textSize="16sp"
         tools:text="Hello" />
 
+    <TextView
+        android:id="@+id/speechTranslateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        tools:text="Hello" />
+
+
     <com.cloudspeechapi.demo.VoiceView
         android:id="@+id/recordButton"
         android:layout_width="100dp"
