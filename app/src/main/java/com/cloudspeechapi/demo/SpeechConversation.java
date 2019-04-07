@@ -9,6 +9,7 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -71,7 +72,6 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
     private String mSavedText;
     private Handler mHandler;
-    private Handler mCameraHandler;
 
     Camera camera;
     FrameLayout frameLayout;
@@ -129,17 +129,28 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                 Log.d("bottomFace", Integer.toString(face.rect.bottom));
             }
 
-            int bottom = face.rect.bottom;
-            bottom = bottom + 1000;
+            Point face_point = face.mouth;
+
+
+            int face_x = face_point.x + 1000;
+            int face_y = face_point.y + 1000;
 
             int s_width = getScreenWidth();
-            int x_pixel = (int)((bottom/2000.0)*(getScreenWidth()));
+            int s_height = getScreenHeight();
+            int x_pixel = (int)(((face_x/2000.0)*(s_width));
+            int y_pixel = (int)(((face_y)/2000.0)*(s_height));
 
             if(x_pixel > s_width || x_pixel < 0) {
                 x_pixel = 50;
             }
 
+            if(y_pixel > s_height || s_pixel < 0) {
+                y_pixel = 200;
+            }
+
+
             mUserSpeechText.setX(x_pixel);
+            mUserSpeechText.setY(y_pixel);
         }
     };
 
