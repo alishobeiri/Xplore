@@ -103,7 +103,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         public void onFaceDetection(Face[] faces, Camera camera) {
             Log.d("onFaceDetection", "Number of Faces:" + faces.length);
             Face face = null;
-            if(faces.length > 1) {
+            if(faces.length >= 1) {
                 face = faces[0];
             }
 
