@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,13 +39,20 @@ public class CameraView extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mTextView.setText(listItems[i]);
+                        if (listItems[i].equals("English")) {
+                            Configuration.FROM_LANG = "en";
+                        } else if (listItems[i].equals("Spanish")){
+                            Configuration.FROM_LANG = "es";
+                        } else if (listItems[i].equals("French")){
+                            Configuration.FROM_LANG = "fr";
+                        }
+
                         dialogInterface.dismiss();
                     }
                 });
                 mBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
                 // show the alert dialog
@@ -69,6 +77,14 @@ public class CameraView extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mTextViewTo.setText(listItemsTo[i]);
+                        if (listItems[i].equals("English")) {
+                            Configuration.TO_LANG = "en";
+                        } else if (listItems[i].equals("Spanish")){
+                            Configuration.TO_LANG = "es";
+                        } else if (listItems[i].equals("French")){
+                            Configuration.TO_LANG = "fr";
+                        }
+
                         dialogInterface.dismiss();
                     }
                 });
