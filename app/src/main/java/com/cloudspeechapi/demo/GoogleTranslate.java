@@ -27,7 +27,8 @@ public class GoogleTranslate extends AsyncTask<String, Void, String> {
     /*
      * Performing the translation in background process
      */
-    
+
+
     @Override
     protected String doInBackground(String... params){
     	
@@ -56,9 +57,9 @@ public class GoogleTranslate extends AsyncTask<String, Void, String> {
              */
         	
             NetHttpTransport netHttpTransport 	= new NetHttpTransport();
- 
+
             JacksonFactory jacksonFactory 		= new JacksonFactory();
-            
+
             /*
              * Creating the Google Translate object
              */
