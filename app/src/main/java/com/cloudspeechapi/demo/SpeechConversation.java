@@ -148,9 +148,8 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         mStartStopBtn = (VoiceView) findViewById(R.id.recordButton);
         mStartStopBtn.setOnRecordListener(this);
 
-        mUserSpeechText = (TextView) findViewById(R.id.userSpeechText);
+
         mSpeechRecogText = (TextView) findViewById(R.id.speechRecogText);
-        mUserTranslatedText = (TextView) findViewById(R.id.speechTranslateText);
         mStatus = (TextView) findViewById(R.id.status);
 
         final Resources resources = getResources();
@@ -158,7 +157,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         mColorHearing = ResourcesCompat.getColor(resources, R.color.status_hearing, theme);
         mColorNotHearing = ResourcesCompat.getColor(resources, R.color.status_not_hearing, theme);
 
-        mUserSpeechText.setText(mSavedText);
+        mSpeechRecogText .setText(mSavedText);
         mHandler = new Handler(Looper.getMainLooper());
 
     }
@@ -174,14 +173,14 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                 @Override
                 public void run() {
                         Log.d(TAG, "Final Response : " + text);
-                        mSpeechRecogText.setTextColor(Color.RED);
-                        mSpeechRecogText.setText(text);
+
                         try {
                             // Google Translate Object
                             GoogleTranslate googleTranslate = new GoogleTranslate();
                             String translatedText = googleTranslate.execute(text, "en", "de").get();
                             Log.d(TAG, "Final Translate Response: " + translatedText);
-                            mUserTranslatedText.setText(translatedText);
+                            mSpeechRecogText.setTextColor(Color.WHITE);
+                            mSpeechRecogText.setText(translatedText);
                         }
                         catch (Exception e){
                             Log.d("Translated Text >>>>>>", e.toString());
