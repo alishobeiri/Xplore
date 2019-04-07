@@ -7,7 +7,7 @@
     tools:context=".CameraView">
 
     <View
-        android:id="@+id/view3"
+        android:id="@+id/top_view"
         android:layout_width="551dp"
         android:layout_height="169dp"
         android:background="@drawable/bg_up"

@@ -173,11 +173,12 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                 @Override
                 public void run() {
                         Log.d(TAG, "Final Response : " + text);
+                        Log.d(TAG, "LANG" + Configuration.FROM_LANG);
 
                         try {
                             // Google Translate Object
                             GoogleTranslate googleTranslate = new GoogleTranslate();
-                            String translatedText = googleTranslate.execute(text, "en", "de").get();
+                            String translatedText = googleTranslate.execute(text, Configuration.FROM_LANG, Configuration.TO_LANG).get();
                             Log.d(TAG, "Final Translate Response: " + translatedText);
                             mSpeechRecogText.setTextColor(Color.WHITE);
                             mSpeechRecogText.setText(translatedText);

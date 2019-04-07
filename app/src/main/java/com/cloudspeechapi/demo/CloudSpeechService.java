@@ -212,14 +212,15 @@ public class CloudSpeechService extends Service {
     }
 
     private String getDefaultLanguageCode() {
-        final Locale locale = Locale.getDefault();
-        final StringBuilder language = new StringBuilder(locale.getLanguage());
-        final String country = locale.getCountry();
-        if (!TextUtils.isEmpty(country)) {
-            language.append("-");
-            language.append(country);
+        String language_key = "";
+        if (Configuration.FROM_LANG.equals("English")) {
+            language_key = "en-CA";
+        } else if (Configuration.FROM_LANG.equals("French")) {
+            language_key = "fr-CA";
+        } else if (Configuration.FROM_LANG.equals("Spanish")) {
+            language_key = "es-US";
         }
-        return language.toString();
+        return language_key;
     }
 
     @Nullable
