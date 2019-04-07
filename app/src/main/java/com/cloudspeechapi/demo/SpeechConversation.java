@@ -146,6 +146,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                         if (mSavedText.equalsIgnoreCase(text)) {
                             mSpeechRecogText.setTextColor(Color.GREEN);
                             mSpeechRecogText.setText(text);
+
                         }
                     } else {
                         Log.d(TAG, "Non Final Response : " + text);

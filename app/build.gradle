@@ -55,6 +55,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.google.apis:google-api-services-translate:v2-rev51-1.25.0', {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
 
     compile "io.grpc:grpc-okhttp:${grpcVersion}"
     compile "io.grpc:grpc-protobuf-lite:${grpcVersion}"
