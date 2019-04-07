@@ -84,12 +84,13 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
     public static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
+
+
     public void moveTextPosition(View view) {
         Log.d("Screen Height", String.valueOf(getScreenHeight()));
         Log.d("Screen Width", String.valueOf(getScreenWidth()));
         mUserSpeechText.setX(50);
         mUserSpeechText.setY(100);
-        mUserSpeechText.setText("hhhhhhhhhhhhhhhhhhhhhhhhhh");
     }
 
 
@@ -120,7 +121,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         public void onFaceDetection(Face[] faces, Camera camera) {
             Log.d("onFaceDetection", "Number of Faces:" + faces.length);
             Face face = null;
-            if(faces.length > 1) {
+            if(faces.length >= 1) {
                 face = faces[0];
             }
 
@@ -128,9 +129,17 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                 Log.d("bottomFace", Integer.toString(face.rect.bottom));
             }
 
+            int bottom = face.rect.bottom;
+            bottom = bottom + 1000;
 
-            // Update the view now!
-            // mFaceView.setFaces(faces);
+            int s_width = getScreenWidth();
+            int x_pixel = (int)((bottom/2000.0)*(getScreenWidth()));
+
+            if(x_pixel > s_width || x_pixel < 0) {
+                x_pixel = 50;
+            }
+
+            mUserSpeechText.setX(x_pixel);
         }
     };
 
