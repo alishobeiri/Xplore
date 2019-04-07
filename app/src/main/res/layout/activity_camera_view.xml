@@ -23,19 +23,23 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rounded_corner_main"
+        app:elevation="10dp"
+
+        />
 
     <TextView
         android:id="@+id/from_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:text="@string/language_selected"
+        android:text="@string/select_language"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/from_button"
-        tools:text="Please select a language above" />
+        />
 
     <View
         android:id="@+id/view2"
@@ -53,9 +57,11 @@
         android:layout_width="208dp"
         android:layout_height="69dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/rounded_corner_main"
         android:text="@string/to"
         android:textSize="30sp"
+        app:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,13 +72,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:text="@string/language_selected"
+        android:text="@string/select_language"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/to_button"
-        tools:text="Please select a language above" />
+        />
 
     <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/floatingActionButton"

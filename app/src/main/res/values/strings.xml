@@ -4,4 +4,5 @@
     <string name="language_selected">Language selected</string>
     <string name="from">FROM</string>
     <string name="to">TO</string>
+    <string name="select_language">Select language</string>
 </resources>

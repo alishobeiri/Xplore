@@ -32,6 +32,8 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.hardware.Camera.CameraInfo;
 
+import java.net.URLEncoder;
+
 
 public class SpeechConversation extends AppCompatActivity implements VoiceView.OnRecordListener {
 
@@ -69,8 +71,8 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
 
     public void moveTextPosition(View view) {
-        Log.d("Screen Height", String.valueOf(getScreenHeight()));
-        Log.d("Screen Width", String.valueOf(getScreenWidth()));
+//        Log.d("Screen Height", String.valueOf(getScreenHeight()));
+//        Log.d("Screen Width", String.valueOf(getScreenWidth()));
         mUserSpeechText.setX(50);
         mUserSpeechText.setY(100);
     }
@@ -128,8 +130,19 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
                 matrix.mapRect(position);
 
-                mSpeechRecogText.setX(position.left - mSpeechRecogText.getWidth() / 3);
-                mSpeechRecogText.setY(position.bottom + mSpeechRecogText.getHeight() / 4);
+                if((position.left - mSpeechRecogText.getWidth() / 3 > getScreenWidth()) ||
+                        (0 < getScreenWidth())){
+                    mSpeechRecogText.setX(getScreenWidth()/2 - mSpeechRecogText.getWidth() / 4);
+                } else {
+                    mSpeechRecogText.setX(position.left - mSpeechRecogText.getWidth() / 3);
+                }
+
+                if((position.bottom + mSpeechRecogText.getHeight() / 4) > getScreenHeight() ||
+                        (position.bottom + mSpeechRecogText.getHeight() / 4) < 0) {
+                    mSpeechRecogText.setY(getScreenHeight()/2 + mSpeechRecogText.getHeight() / 4);
+                } else {
+                    mSpeechRecogText.setY(position.bottom + mSpeechRecogText.getHeight() / 4);
+                }
             }
 
 
@@ -212,7 +225,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                         // Google Translate Object
                         GoogleTranslate googleTranslate = new GoogleTranslate();
                         String translatedText = googleTranslate.execute(text, Configuration.FROM_LANG, Configuration.TO_LANG).get();
-                        mSpeechRecogText.setTextColor(Color.WHITE);
+                        mSpeechRecogText.setTextColor(Color.BLACK);
                         mSpeechRecogText.setText(translatedText);
                     } catch (Exception e) {
                         Log.d("Translated Text >>>>>>", e.toString());

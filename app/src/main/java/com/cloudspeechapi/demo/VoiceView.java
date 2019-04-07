@@ -66,7 +66,7 @@ public class VoiceView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mMaxRadius = Math.min(w, h) / 2;
-        Log.d(TAG, "MaxRadius: " + mMaxRadius);
+//        Log.d(TAG, "MaxRadius: " + mMaxRadius);
     }
 
     @Override

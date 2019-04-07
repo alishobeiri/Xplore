@@ -22,7 +22,7 @@ public class GoogleTranslate extends AsyncTask<String, Void, String> {
      * Your Google API Key here
     */
 	
-    private final String API_KEY = "AIzaSyAm59zFjSBJ5NnQp3-MjdX_jGyx7Fy5H0Q";
+    private final String API_KEY = "AIzaSyAeEtSZrNxAmbjUdWURfFceq0BzAEJs9oA";
     
     /*
      * Performing the translation in background process

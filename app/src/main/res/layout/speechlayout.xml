@@ -32,7 +32,7 @@
         android:autoSizeTextType="uniform"
         android:background="@drawable/rounded_corner"
         android:gravity="center"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:textSize="14sp" />
 
 
