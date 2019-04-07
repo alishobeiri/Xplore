@@ -13,18 +13,6 @@
         android:layout_marginBottom="0dp">
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Listening..."
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textColor="@color/status_not_hearing"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
 
     <TextView
         android:id="@+id/speechRecogText"
@@ -45,7 +33,7 @@
         android:background="@drawable/rounded_corner"
         android:gravity="center"
         android:textColor="#FFF"
-        android:textSize="18dp" />
+        android:textSize="14sp" />
 
 
     <com.cloudspeechapi.demo.VoiceView
@@ -57,12 +45,5 @@
         android:layout_marginBottom="11dp"
         android:background="@android:color/transparent"
         android:visibility="visible" />
-
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="moveTextPosition"
-        android:text="Button" />
 
 </RelativeLayout>
