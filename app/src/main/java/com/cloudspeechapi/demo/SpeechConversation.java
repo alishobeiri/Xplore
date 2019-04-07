@@ -9,6 +9,7 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -28,6 +29,9 @@ import android.widget.FrameLayout;
 import android.widget.Button;
 import android.widget.TextView;
 import android.hardware.Camera;
+import android.hardware.Camera.FaceDetectionListener;
+import android.hardware.Camera.Face;
+
 
 /*
  * Copyright (C) 2017 The Android Open Source Project
@@ -80,12 +84,13 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
     public static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
+
+
     public void moveTextPosition(View view) {
         Log.d("Screen Height", String.valueOf(getScreenHeight()));
         Log.d("Screen Width", String.valueOf(getScreenWidth()));
         mUserSpeechText.setX(50);
         mUserSpeechText.setY(100);
-        mUserSpeechText.setText("hhhhhhhhhhhhhhhhhhhhhhhhhh");
     }
 
 
@@ -104,7 +109,51 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
         showCamera = new ShowCamera(this, camera);
         frameLayout.addView(showCamera);
+
+
+        camera.setFaceDetectionListener(faceDetectionListener);
+        camera.startFaceDetection();
     }
+
+
+    private FaceDetectionListener faceDetectionListener = new FaceDetectionListener() {
+        @Override
+        public void onFaceDetection(Face[] faces, Camera camera) {
+            Log.d("onFaceDetection", "Number of Faces:" + faces.length);
+            Face face = null;
+            if(faces.length >= 1) {
+                face = faces[0];
+            }
+
+            if(face != null) {
+                Log.d("bottomFace", Integer.toString(face.rect.bottom));
+            }
+
+            Point face_point = face.mouth;
+
+
+            int face_x = face_point.x + 1000;
+            int face_y = face_point.y + 1000;
+
+            int s_width = getScreenWidth();
+            int s_height = getScreenHeight();
+            int x_pixel = (int)(((face_x/2000.0)*(s_width));
+            int y_pixel = (int)(((face_y)/2000.0)*(s_height));
+
+            if(x_pixel > s_width || x_pixel < 0) {
+                x_pixel = 50;
+            }
+
+            if(y_pixel > s_height || s_pixel < 0) {
+                y_pixel = 200;
+            }
+
+
+            mUserSpeechText.setX(x_pixel);
+            mUserSpeechText.setY(y_pixel);
+        }
+    };
+
 
     @Override
     public void onStart() {
@@ -124,6 +173,13 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
                     REQUEST_RECORD_AUDIO_PERMISSION);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        camera.stopPreview();
+        camera.release();
     }
 
     @Override
