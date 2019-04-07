@@ -23,7 +23,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.hardware.Camera;
 
 /*
  * Copyright (C) 2017 The Android Open Source Project
@@ -65,6 +67,10 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
     private String mSavedText;
     private Handler mHandler;
 
+    Camera camera;
+    FrameLayout frameLayout;
+    ShowCamera showCamera;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +80,13 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.speechlayout);
         initViews();
+
+        frameLayout = (FrameLayout)findViewById(R.id.frameLayout);
+
+        camera = Camera.open();
+
+        showCamera = new ShowCamera(this, camera);
+        frameLayout.addView(showCamera);
     }
 
     @Override
