@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -23,10 +22,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.Button;
 import android.widget.TextView;
 import android.hardware.Camera;
 import android.hardware.Camera.FaceDetectionListener;
@@ -62,9 +59,6 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
     ShowCamera showCamera;
 
 
-    private Boolean started;
-    private int iterator;
-
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
@@ -91,7 +85,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         setContentView(R.layout.speechlayout);
         initViews();
 
-        frameLayout = (FrameLayout)findViewById(R.id.frameLayout);
+        frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
 
         camera = Camera.open();
 
@@ -101,21 +95,19 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
         camera.setFaceDetectionListener(faceDetectionListener);
         camera.startFaceDetection();
-
-        started = false;
     }
 
 
     private FaceDetectionListener faceDetectionListener = new FaceDetectionListener() {
         @Override
         public void onFaceDetection(Face[] faces, Camera camera) {
-            Log.d("onFaceDetection", "Number of Faces:" + faces.length);
+//            Log.d("onFaceDetection", "Number of Faces:" + faces.length);
             Face face = null;
-            if(faces.length >= 1) {
+            if (faces.length >= 1) {
                 face = faces[0];
             }
 
-            if(face != null) {
+            if (face != null) {
                 RectF position = new RectF();
                 position.set(face.rect);
 
@@ -136,8 +128,8 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
                 matrix.mapRect(position);
 
-                mSpeechRecogText.setX(position.left - mSpeechRecogText.getWidth()/3);
-                mSpeechRecogText.setY(position.bottom + mSpeechRecogText.getHeight()/4);
+                mSpeechRecogText.setX(position.left - mSpeechRecogText.getWidth() / 3);
+                mSpeechRecogText.setY(position.bottom + mSpeechRecogText.getHeight() / 4);
             }
 
 
@@ -202,7 +194,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         mColorHearing = ResourcesCompat.getColor(resources, R.color.status_hearing, theme);
         mColorNotHearing = ResourcesCompat.getColor(resources, R.color.status_not_hearing, theme);
 
-        mSpeechRecogText .setText(mSavedText);
+        mSpeechRecogText.setText(mSavedText);
         mHandler = new Handler(Looper.getMainLooper());
 
     }
@@ -211,21 +203,20 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         @Override
         public void onSpeechRecognized(final String text, final boolean isFinal) {
             if (isFinal) {
-                iterator = 0;
                 mVoiceRecorder.dismiss();
             }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                            try {
-                                // Google Translate Object
-                                GoogleTranslate googleTranslate = new GoogleTranslate();
-                                String translatedText = googleTranslate.execute(text, Configuration.FROM_LANG, Configuration.TO_LANG).get();
-                                mSpeechRecogText.setTextColor(Color.WHITE);
-                                mSpeechRecogText.setText(translatedText);
-                            } catch (Exception e) {
-                                Log.d("Translated Text >>>>>>", e.toString());
-                            }
+                    try {
+                        // Google Translate Object
+                        GoogleTranslate googleTranslate = new GoogleTranslate();
+                        String translatedText = googleTranslate.execute(text, Configuration.FROM_LANG, Configuration.TO_LANG).get();
+                        mSpeechRecogText.setTextColor(Color.WHITE);
+                        mSpeechRecogText.setText(translatedText);
+                    } catch (Exception e) {
+                        Log.d("Translated Text >>>>>>", e.toString());
+                    }
                 }
             });
         }
@@ -266,7 +257,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                 @Override
                 public void run() {
                     int amplitude = (buffer[0] & 0xff) << 8 | buffer[1];
-                    double amplitudeDb3 = 20 * Math.log10((double)Math.abs(amplitude) / 32768);
+                    double amplitudeDb3 = 20 * Math.log10((double) Math.abs(amplitude) / 32768);
                     float radius2 = (float) Math.log10(Math.max(1, amplitudeDb3)) * dp2px(SpeechConversation.this, 20);
                     mStartStopBtn.animateRadius(radius2 * 10);
                 }
@@ -298,12 +289,40 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         if (mIsRecording) {
             mStartStopBtn.changePlayButtonState(VoiceView.STATE_NORMAL);
             stopVoiceRecorder();
-        } else if (started) {
+        } else {
             mStartStopBtn.changePlayButtonState(VoiceView.STATE_RECORDING);
             startVoiceRecorder();
         }
-        started = true;
     }
+
+
+//    public String sentimentAnalysis(String text) throws Exception {
+//        try (LanguageServiceClient  language = LanguageServiceClient.create()) {
+//            Document doc = Document.newBuilder()
+//                    .setContent(text)
+//                    .setType(Type.PLAIN_TEXT)
+//                    .build();
+//            AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
+//            Sentiment sentiment = response.getDocumentSentiment();
+//
+//            if (sentiment == null) {
+//                return null;
+//            }
+//            float senMagnitude = sentiment.getMagnitude();
+//            float senScore = sentiment.getScore();
+//
+//            if (senMagnitude < 0.3 && senMagnitude > -0.3) {
+//                return "Neutral";
+//            }
+//            if (senScore > 0.4) {
+//                return "Positive";
+//            }
+//            if (senScore < -0.4) {
+//                return "negative";
+//            }
+//            return "mixed";
+//        }
+//    }
 
     private void startVoiceRecorder() {
         mIsRecording = true;
@@ -325,7 +344,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
         if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
             if (permissions.length == 1 && grantResults.length == 1
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -346,10 +365,10 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 }).setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                    }
-                }).create();
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+            }
+        }).create();
 
         AlertDialog alertDialog = alertDialogBuilder.create();
 

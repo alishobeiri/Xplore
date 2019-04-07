@@ -114,7 +114,6 @@ public class VoiceView extends View {
                 ObjectAnimator.ofFloat(this, "CurrentRadius", getCurrentRadius(), radius).setDuration(50),
                 ObjectAnimator.ofFloat(this, "CurrentRadius", radius, mMinRadius).setDuration(600)
         );
-        mAnimatorSet.start();
 
         Log.d(TAG, "animateRadius BBBB " + radius);
     }
@@ -134,6 +133,7 @@ public class VoiceView extends View {
             case MotionEvent.ACTION_DOWN:
                 Log.d(TAG, "ACTION_DOWN");
                 mState = STATE_PRESSED;
+                mAnimatorSet.start();
                 invalidate();
                 return true;
             case MotionEvent.ACTION_UP:
