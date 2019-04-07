@@ -22,7 +22,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 /*
@@ -64,6 +66,22 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
     private String mSavedText;
     private Handler mHandler;
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+    public void moveTextPosition(View view) {
+        Log.d("Screen Height", String.valueOf(getScreenHeight()));
+        Log.d("Screen Width", String.valueOf(getScreenWidth()));
+        mUserSpeechText.setX(50);
+        mUserSpeechText.setY(100);
+        mUserSpeechText.setText("hhhhhhhhhhhhhhhhhhhhhhhhhh");
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,6 +147,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
         mUserSpeechText.setText(mSavedText);
         mHandler = new Handler(Looper.getMainLooper());
+
     }
 
     private final CloudSpeechService.Listener mCloudSpeechServiceListener = new CloudSpeechService.Listener() {

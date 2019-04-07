@@ -12,4 +12,6 @@
         android:layout_height="wrap_content"
         android:onClick="launchSecondActivity"
         android:text="Camera" />
+
+
 </android.support.constraint.ConstraintLayout>
