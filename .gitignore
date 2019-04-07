@@ -54,3 +54,7 @@ freeline.py
 freeline/
 freeline_project_description.json
 >>>>>>> 73f53a68d11f50387cfaafe4e7a0f51e8e42442d
+.idea/caches/build_file_checksums.ser
+.idea/caches/gradle_models.ser
+.idea/misc.xml
+.idea/modules.xml

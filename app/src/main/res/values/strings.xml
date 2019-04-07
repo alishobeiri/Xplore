@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CloudSpeechAPIDemo</string>
+    <string name="camera">Camera</string>
+    <string name="language_selected">Language selected</string>
+    <string name="from">FROM</string>
+    <string name="to">TO</string>
 </resources>

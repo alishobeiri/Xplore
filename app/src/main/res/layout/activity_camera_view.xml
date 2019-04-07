@@ -6,10 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".CameraView">
 
+    <View
+        android:id="@+id/view3"
+        android:layout_width="551dp"
+        android:layout_height="169dp"
+        android:background="@drawable/bg_up"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-48dp" />
     <Button
-        android:id="@+id/button"
+        android:id="@+id/from_button"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="208dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/from"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/from_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="@string/language_selected"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/from_button" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="503dp"
+        android:layout_height="153dp"
+        android:background="@drawable/bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/to_button"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="208dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="116dp"
+        android:text="@string/to"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/from_text" />
+
+    <TextView
+        android:id="@+id/to_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="@string/language_selected"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_button" />
+
+    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/floatingActionButton"
+        android:layout_width="93dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="56dp"
         android:onClick="launchSecondActivity"
+
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:borderWidth="0dp"
+        app:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
         android:text="Camera" />
+
 </android.support.constraint.ConstraintLayout>

@@ -22,8 +22,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.Button;
 import android.widget.TextView;
 import android.hardware.Camera;
 import android.hardware.Camera.FaceDetectionListener;
@@ -55,7 +57,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
 
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 1;
 
-    private TextView mUserSpeechText, mSpeechRecogText;
+    private TextView mUserSpeechText, mSpeechRecogText, mUserTranslatedText;
     private VoiceView mStartStopBtn;
 
     private CloudSpeechService mCloudSpeechService;
@@ -74,6 +76,21 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
     Camera camera;
     FrameLayout frameLayout;
     ShowCamera showCamera;
+    
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+    public void moveTextPosition(View view) {
+        Log.d("Screen Height", String.valueOf(getScreenHeight()));
+        Log.d("Screen Width", String.valueOf(getScreenWidth()));
+        mUserSpeechText.setX(50);
+        mUserSpeechText.setY(100);
+        mUserSpeechText.setText("hhhhhhhhhhhhhhhhhhhhhhhhhh");
+    }
 
 
     @Override
@@ -167,7 +184,7 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         mStartStopBtn = (VoiceView) findViewById(R.id.recordButton);
         mStartStopBtn.setOnRecordListener(this);
 
-        mUserSpeechText = (TextView) findViewById(R.id.userSpeechText);
+
         mSpeechRecogText = (TextView) findViewById(R.id.speechRecogText);
         mStatus = (TextView) findViewById(R.id.status);
 
@@ -176,8 +193,9 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
         mColorHearing = ResourcesCompat.getColor(resources, R.color.status_hearing, theme);
         mColorNotHearing = ResourcesCompat.getColor(resources, R.color.status_not_hearing, theme);
 
-        mUserSpeechText.setText(mSavedText);
+        mSpeechRecogText .setText(mSavedText);
         mHandler = new Handler(Looper.getMainLooper());
+
     }
 
     private final CloudSpeechService.Listener mCloudSpeechServiceListener = new CloudSpeechService.Listener() {
@@ -190,17 +208,18 @@ public class SpeechConversation extends AppCompatActivity implements VoiceView.O
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (isFinal) {
                         Log.d(TAG, "Final Response : " + text);
-                        if (mSavedText.equalsIgnoreCase(text)) {
-                            mSpeechRecogText.setTextColor(Color.GREEN);
-                            mSpeechRecogText.setText(text);
 
+                        try {
+                            // Google Translate Object
+                            GoogleTranslate googleTranslate = new GoogleTranslate();
+                            String translatedText = googleTranslate.execute(text, "en", "de").get();
+                            Log.d(TAG, "Final Translate Response: " + translatedText);
+                            mSpeechRecogText.setTextColor(Color.WHITE);
+                            mSpeechRecogText.setText(translatedText);
                         }
-                    } else {
-                        Log.d(TAG, "Non Final Response : " + text);
-                        mSpeechRecogText.setTextColor(Color.RED);
-                        mSpeechRecogText.setText(text);
+                        catch (Exception e){
+                            Log.d("Translated Text >>>>>>", e.toString());
                     }
                 }
             });
