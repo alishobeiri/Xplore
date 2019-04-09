@@ -19,12 +19,12 @@ Users can just open, the app point the camera and the persons voice translates t
    - Ali Shobeiri (https://github.com/alishobeiri)
     
 ### Previews
-<p align="center">
-![Main](https://user-images.githubusercontent.com/25883629/55772441-38eb1e00-5a5a-11e9-9cca-35e78955eeb7.png) </p>
+
+![Main](https://user-images.githubusercontent.com/25883629/55773745-14924000-5a60-11e9-9f40-4e7df1783e05.png)
 
 ### Demo
 
 ![xplore_demo](https://user-images.githubusercontent.com/25883629/55773572-37702480-5a5f-11e9-9a33-0b1faadbb819.gif)
 <br/>
-<p align="center">
-Creds to [Bryan](https://github.com/bryanjay28) for starring in demo.</p>
+
+Creds to [Bryan](https://github.com/bryanjay28) for starring in demo.
